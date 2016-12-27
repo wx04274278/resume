@@ -33,29 +33,35 @@ $('footer').find('button').tap(function(){
 	$('#header').html($(this).html());
 	$('#scroller').children('ul').eq($(this).index()).show().siblings('ul').hide();
 	loaded();
-	myScroll.refresh();
+	setTimeout(function(){
+		myScroll.scrollTo(0,0);
+		myScroll.refresh();
+	},100);
 });
 //---------------------第一部分----------------------
 $.post('http://localhost:8000/skill', {}, function(response){
 	var str='';
 	for(var i=0,len=response.length;i<len;i++){
-		console.log(i);
 		str+='<li><img src="images/hyuan.png"><span class="title">'+response[i].category+'</span><p>'+response[i].level+response[i].name+'<br>使用时间：'+response[i].time+'</p></li>';
 	}
   	$('.ul-one').html(str);
+	loaded();
   	var aImg=$('.ul-one li').find('img');
   	for(var i=0;i<aImg.length;i++){
   		if(i%2==1){
   			aImg[i].src='images/lv.png';
   		}
   	}
-	loaded();
+	setTimeout(function(){
+		myScroll.scrollTo(0,0);
+		myScroll.refresh();
+	},100);
 });
 //--------------------第二部分---------------------
 $.post('http://localhost:8000/work', {}, function(response){
 	var str='';
 	for(var i=0;i<response.length;i++){
-		str+='<li><img src="'+response[i].src+'"><ul><li>公司名称：'+response[i].name+'</li><li>公司性质：'+response[i].category+'</li><li>企业规模：'+response[i].peoples+'</li><li>职位：'+response[i].posts+'</li><li>工作时间：'+response[i].time+'</li></ul></li>'
+		str+='<li><img src="'+response[i].src+'"><ul><li>公司名称 ： '+response[i].name+'</li><li>公司性质 ： '+response[i].category+'</li><li>企业规模 ： '+response[i].peoples+'</li><li>职位 ：'+response[i].posts+'</li><li>工作时间 ：'+response[i].time+'</li></ul></li>'
 	}
 	$('.ul-two').html(str);
 });
@@ -63,7 +69,7 @@ $.post('http://localhost:8000/work', {}, function(response){
 $.post('http://localhost:8000/project', {}, function(response){
 	var str='';
 	for(var i=0;i<response.length;i++){
-		str+='<li><img src="'+response[i].image+'"><p>网站类型：'+response[i].category+'<br>网站名称:'+response[i].name+'<br>网址:'+response[i].url+'<br>简介：'+response[i].description+'<br>详情：'+response[i].detail+'<br>应用技术：'+response[i].tech+'<br></p></li>';
+		str+='<li><img src="'+response[i].image+'"><p>网站类型 ： '+response[i].category+'<br>网站名称 : '+response[i].name+'<br>网址 : '+response[i].url+'<br>简介 ：'+response[i].description+'<br>详情 ：'+response[i].detail+'<br>应用技术 ：'+response[i].tech+'<br></p></li>';
 	}
 	$('.ul-three').html(str);
 });
